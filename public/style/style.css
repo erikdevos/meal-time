@@ -1,0 +1,145 @@
+:root {
+  --color-white: #ffffff;
+  --color-black: #222222;
+  --color-mid-gray: #404040;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top: 0;
+}
+
+* {
+  box-sizing: inherit;
+}
+*:before {
+  box-sizing: inherit;
+}
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  background-color: #eaeaea;
+}
+
+header {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  background-color: lightgray;
+  margin-bottom: 3rem;
+}
+
+.overview-refresh-button {
+  margin-bottom: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  cursor: pointer;
+}
+
+ul {
+  font-family: inherit;
+}
+ul li {
+  font-family: inherit;
+}
+
+pre {
+  font-family: inherit;
+  word-break: break-word;
+}
+
+.meals-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  grid-column-gap: 4rem;
+  grid-row-gap: 4rem;
+}
+
+.meal-item__wrapper {
+  width: 100%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0.9rem;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: hidden;
+}
+.meal-item__wrapper:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+.meal-item__wrapper img {
+  width: 100%;
+  aspect-ratio: 5/3;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+  border-radius: 0.3rem;
+}
+.meal-item__wrapper .meal-info-wrapper {
+  padding: 1.5rem;
+}
+.meal-item__wrapper .meal-info-wrapper h2 {
+  margin-top: 0;
+}
+
+.category-labels {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 2rem;
+}
+.category-labels li {
+  display: inline-flex;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 1rem;
+  margin-right: 0.7rem;
+  margin-bottom: 0.7rem;
+  background-color: lightgray;
+}
+
+.main-content-section {
+  margin-bottom: 10rem;
+}
+.main-content-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.page-row-wrapper {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer {
+  background-color: var(--color-mid-gray);
+  color: var(--color-white);
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}/*# sourceMappingURL=style.css.map */
