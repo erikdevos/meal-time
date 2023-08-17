@@ -45,12 +45,15 @@ async function fetchData() {
 
                 return `
                     <div class="meal-item__wrapper">
-                        <img src="${imageURL}" alt="Gerecht ${attributes.naam}">
-                        <div class="meal-info-wrapper">
-                            <h2>${attributes.naam}</h2>
+                        <div class="meal-image-wrapper">
+                            <img src="${imageURL}" alt="Gerecht ${attributes.naam}">
                             <ul class="category-labels">
                                 ${categoryLabels.join('')}
                             </ul>
+                        </div>
+                        <div class="meal-info-wrapper">
+                            <h2>${attributes.naam}</h2>
+
                             <div class="short-description">${attributes.omschrijving}</div>
                         </div>
                     </div>

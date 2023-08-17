@@ -81,6 +81,14 @@ pre {
   cursor: pointer;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
+.meal-item__wrapper .meal-image-wrapper {
+  position: relative;
+}
+.meal-item__wrapper .meal-image-wrapper .category-labels {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+}
 .meal-item__wrapper img {
   width: 100%;
   aspect-ratio: 5/3;
@@ -104,7 +112,8 @@ pre {
   list-style: none;
   flex-wrap: wrap;
   padding-left: 0;
-  margin-bottom: 2rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .category-labels li {
   display: inline-flex;
@@ -114,8 +123,9 @@ pre {
   padding-right: 1rem;
   border-radius: 1rem;
   margin-right: 0.7rem;
-  margin-bottom: 0.7rem;
-  background-color: lightgray;
+  margin-bottom: 0;
+  background-color: var(--color-white);
+  font-size: 0.9rem;
 }
 
 .main-content-section {
