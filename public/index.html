@@ -24,9 +24,34 @@
         <div class="container">
             <h1>Maaltijden overzicht</h1>
 
-            <button id="refreshButton" class="overview-refresh-button">Ververs overzicht</button>
-            
-            <!-- Maaltijden content -->
+            <!-- Refresh overview-->
+
+            <div class="button-bar">
+                <button id="refreshButton" class="primary overview-refresh-button">Ververs overzicht</button>
+                
+                <div class="filter-toggles">
+                    <span class="label">Laat zien:</span>
+                    <button class="secondary active" id="filter-betaalbaar">
+                        Betaalbaar
+                    </button>
+                    
+                    <button class="secondary active" id="filter-gezond">
+                        Gezond
+                    </button>
+                    
+                    <button class="secondary active" id="filter-snel">
+                        Snel
+                    </button>
+                    
+                </div>
+
+                <!-- Show totals -->
+                <div class="overview-totals" id="overviewTotals">
+                    <span id="totalResults">0</span> gerechten
+                </div>            
+            </div>
+
+            <!-- Meals overview -->
             <div id="dataContainer"></div>
         </div>
     </section>

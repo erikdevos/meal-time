@@ -7,9 +7,13 @@ $background-color_3: lightgray;
 $background-color_4: var(--color-mid-gray);
 
 :root {
-	--color-white: #ffffff;
-	--color-black: #222222;
-	--color-mid-gray: #404040;
+	--color-white: #ffffff; // white
+	--color-black: #222222; // black
+	--color-mid-gray: #404040; // mid gray
+	--color-primary: #6bac6b; // green
+	--color-primary-hover: #568b56; // darker green
+	--color-secondary: #6b80ac; // blue
+	--color-secondary-hover: #5a6b91; // blue
 }
 
 html {
@@ -38,6 +42,43 @@ body {
 	background-color: $background-color_1;
 }
 
+button {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	border-radius: 0.7rem;
+	font-size: 1rem;
+	transition: all ease-in-out 0.5s;
+
+	&.primary {
+		color: var(--color-white);
+		background-color: var(--color-primary);
+		&:hover {
+			background-color: var(--color-primary-hover);
+		}
+	}
+
+	&.secondary {
+		color: var(--color-white);
+		background-color: var(--color-secondary);
+		&:hover {
+			background-color: var(--color-secondary-hover);
+		}
+		&.active {
+			background-color: var(--color-secondary-hover);
+		}
+	}
+
+	&:hover {
+		padding-left: 1.2rem;
+		padding-right: 1.2rem;
+	}
+}
+
 header {
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
@@ -45,15 +86,39 @@ header {
 	margin-bottom: 3rem;
 }
 
-.overview-refresh-button {
-	margin-bottom: 2rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-left: 1rem;
-	padding-right: 1rem;
-	cursor: pointer;
+.button-bar {
+	display: flex;
+	align-items: center;
+	margin-bottom: 3rem;
 
+	.overview-refresh-button {	
+		margin-right: 1rem;
+	}
+
+	.filter-toggles {
+		display: flex;
+		align-items: center;
+
+		.label {
+			margin-right: 1rem;
+		}
+
+		button {
+			margin-right: 0.5rem;
+			&:last-of-type {
+				margin-right: 0;
+			}
+		}
+
+	}
+
+	.overview-totals {
+		margin-left: auto;
+		color: var(--color-mid-gray);
+	}
 }
+
+
 
 ul {
 	font-family: $font-family_2;

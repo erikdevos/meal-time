@@ -2,6 +2,10 @@
   --color-white: #ffffff;
   --color-black: #222222;
   --color-mid-gray: #404040;
+  --color-primary: #6bac6b;
+  --color-primary-hover: #568b56;
+  --color-secondary: #6b80ac;
+  --color-secondary-hover: #5a6b91;
 }
 
 html {
@@ -30,6 +34,40 @@ body {
   background-color: #eaeaea;
 }
 
+button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  transition: all ease-in-out 0.5s;
+}
+button.primary {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+button.primary:hover {
+  background-color: var(--color-primary-hover);
+}
+button.secondary {
+  color: var(--color-white);
+  background-color: var(--color-secondary);
+}
+button.secondary:hover {
+  background-color: var(--color-secondary-hover);
+}
+button.secondary.active {
+  background-color: var(--color-secondary-hover);
+}
+button:hover {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
 header {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -37,13 +75,30 @@ header {
   margin-bottom: 3rem;
 }
 
-.overview-refresh-button {
-  margin-bottom: 2rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  cursor: pointer;
+.button-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.button-bar .overview-refresh-button {
+  margin-right: 1rem;
+}
+.button-bar .filter-toggles {
+  display: flex;
+  align-items: center;
+}
+.button-bar .filter-toggles .label {
+  margin-right: 1rem;
+}
+.button-bar .filter-toggles button {
+  margin-right: 0.5rem;
+}
+.button-bar .filter-toggles button:last-of-type {
+  margin-right: 0;
+}
+.button-bar .overview-totals {
+  margin-left: auto;
+  color: var(--color-mid-gray);
 }
 
 ul {
