@@ -92,6 +92,10 @@ header {
 }
 .button-bar .filter-toggles button {
   margin-right: 0.5rem;
+  background-color: gray;
+}
+.button-bar .filter-toggles button.active {
+  background-color: var(--color-secondary);
 }
 .button-bar .filter-toggles button:last-of-type {
   margin-right: 0;

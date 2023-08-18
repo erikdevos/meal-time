@@ -105,6 +105,10 @@ header {
 
 		button {
 			margin-right: 0.5rem;
+			background-color: gray;
+			&.active {
+				background-color: var(--color-secondary);
+			}
 			&:last-of-type {
 				margin-right: 0;
 			}

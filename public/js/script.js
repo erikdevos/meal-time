@@ -63,7 +63,11 @@ function filterAndDisplayMeals(data) {
 
     if (filteredMeals.length === 0) {
         console.log("No meals available");
-        dataContainer.innerHTML = 'No meals available.';
+        messageContainer.innerHTML = 'Geen maaltijden beschikbaar voor deze opties, probeer andere filters.';
+    }
+
+    if (filteredMeals.length !== 0) {
+        messageContainer.innerHTML = '';
     }
         
     //console.log("Filtered Meals:", filteredMeals);
@@ -114,6 +118,8 @@ function filterAndDisplayMeals(data) {
     `;
 
     dataContainer.innerHTML = mealsContainerHTML;
+
+
     // Update the counter based on the number of filtered meals
     updateCounter(filteredMeals.length);
 
@@ -147,6 +153,7 @@ async function fetchData() {
 
         // Find Overview container
         const dataContainer = document.getElementById('dataContainer');
+        const messageContainer = document.getElementById('messageContainer');
 
         // Call filterAndDisplayMeals to initially display meals
         filterAndDisplayMeals(data);
