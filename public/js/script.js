@@ -95,7 +95,8 @@ function filterAndDisplayMeals(data, searchTerm) {
     console.log('Filtered meals:', filteredMeals); // Add this line to log filtered meals
 
     // Display filtered meals...
-    const mealsHTML = filteredMeals.map(meal => {
+    const shuffledFilteredMeals = shuffleArray(filteredMeals); // Shuffle the filtered meals
+        const mealsHTML = shuffledFilteredMeals.map(meal => {
         const attributes = meal.attributes;
         const smallThumbnailURL = (
             attributes.voorbeeld &&
