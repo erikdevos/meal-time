@@ -80,6 +80,11 @@ header {
   align-items: center;
   margin-bottom: 3rem;
 }
+@media only screen and (max-width: 600px) {
+  .button-bar {
+    flex-direction: column;
+  }
+}
 .button-bar .overview-refresh-button {
   margin-right: 1rem;
 }
@@ -123,6 +128,20 @@ pre {
   grid-template-rows: 1fr;
   grid-column-gap: 4rem;
   grid-row-gap: 4rem;
+}
+@media only screen and (max-width: 900px) {
+  .meals-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .meals-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-column-gap: 0;
+    grid-row-gap: 3rem;
+  }
 }
 
 .meal-item__wrapper {
@@ -194,6 +213,12 @@ pre {
   font-size: 2.5rem;
   margin-bottom: 3rem;
 }
+@media only screen and (max-width: 600px) {
+  .main-content-section h1 {
+    font-size: 1.5rem;
+    word-break: break-word;
+  }
+}
 
 .page-row-wrapper {
   width: 100%;
@@ -204,6 +229,12 @@ pre {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+@media only screen and (max-width: 1000px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 footer {
