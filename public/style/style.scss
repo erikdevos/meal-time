@@ -86,6 +86,17 @@ header {
 	margin-bottom: 3rem;
 }
 
+.search-form-wrapper {
+	margin-bottom: 1.5rem;
+	input[type=text] {
+		padding-left: 1rem;
+		padding-right: 1rem;
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		font-size: 1rem;
+	}
+}
+
 .button-bar {
 	display: flex;
 	align-items: center;
@@ -126,6 +137,31 @@ header {
 	}
 }
 
+.loader-wrapper {
+	margin-bottom: 1.5rem;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+
+	.loader-image {
+		margin: 0 0 2em;
+		height: 60px;
+		width: 60px;
+		text-align: center;
+		padding: 1em;
+		margin: 0 auto 1em;
+		display: inline-block;
+		vertical-align: top;
+		  
+		  // Set the color of the icon
+		  svg path,
+		  svg rect{
+			  fill: #FF6700;
+		  }
+	  }
+	  
+
+}
 
 
 ul {
@@ -143,8 +179,8 @@ pre {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-template-rows: 1fr;
-	grid-column-gap: 4rem;
-	grid-row-gap: 4rem;
+	grid-column-gap: 3rem;
+	grid-row-gap: 3rem;
 	@media only screen and (max-width: 900px) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		grid-column-gap: 2rem;
@@ -244,7 +280,7 @@ pre {
 	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
-	@media only screen and (max-width: 1000px) {
+	@media only screen and (max-width: 1200px) {
 		padding-left: 1rem;
 		padding-right: 1rem;
 	}

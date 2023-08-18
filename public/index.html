@@ -26,8 +26,14 @@
         <div class="container">
             <h1>Maaltijden overzicht</h1>
 
-            <!-- Refresh overview-->
+            <!-- Search form -->
+            <div class="search-form-wrapper">
+                <form>
+                    <input type="text" id="search-input" class="search-input" placeholder="Zoek een gerecht" autofocus>
+                </form>
+            </div>
 
+            <!-- Refresh overview-->
             <div class="button-bar">
                 <button id="refreshButton" class="primary overview-refresh-button">Ververs overzicht</button>
                 
@@ -55,6 +61,14 @@
 
             <!-- For error messages -->
             <div id="messageContainer"></div>
+
+            <!-- Loader element -->
+            <div id="loader" class="loader-wrapper">
+                <div class="loader-image">
+                    <img src="/resources/loader.svg">
+                </div>
+            </div>
+
 
             <!-- Meals overview -->
             <div id="dataContainer"></div>

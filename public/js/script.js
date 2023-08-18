@@ -21,24 +21,32 @@ let selectedFilters = {
     snel: true
 };
 
+const searchInput = document.getElementById('search-input');
+
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    filterAndDisplayMeals(data, searchTerm);
+});
+
 // Add event listeners to the filter buttons
 document.getElementById('filter-betaalbaar').addEventListener('click', () => {
     selectedFilters.betaalbaar = !selectedFilters.betaalbaar;
-    filterAndDisplayMeals(data);
+    filterAndDisplayMeals(data, searchInput.value.trim().toLowerCase()); // Pass the searchTerm
     toggleActiveClass('filter-betaalbaar');
 });
 
 document.getElementById('filter-gezond').addEventListener('click', () => {
     selectedFilters.gezond = !selectedFilters.gezond;
-    filterAndDisplayMeals(data);
+    filterAndDisplayMeals(data, searchInput.value.trim().toLowerCase()); // Pass the searchTerm
     toggleActiveClass('filter-gezond');
 });
 
 document.getElementById('filter-snel').addEventListener('click', () => {
     selectedFilters.snel = !selectedFilters.snel;
-    filterAndDisplayMeals(data);
+    filterAndDisplayMeals(data, searchInput.value.trim().toLowerCase()); // Pass the searchTerm
     toggleActiveClass('filter-snel');
 });
+
 // Function to toggle active class on filter buttons
 function toggleActiveClass(buttonId) {
     const button = document.getElementById(buttonId);
@@ -46,10 +54,23 @@ function toggleActiveClass(buttonId) {
 }
 
 // Function to filter and display meals
-function filterAndDisplayMeals(data) {
+function filterAndDisplayMeals(data, searchTerm) {
+
+    // Clear error message on load
+    messageContainer.innerHTML = '';
+
+    // Show the loader
+    const loader = document.getElementById('loader');
+    loader.style.display = 'flex'; // Display the loader before fetching
+
     if (!data) {
         return; // Data not available yet
     }
+
+ // Set a timeout to hide the loader after a minimum duration (0.5 seconds)
+ setTimeout(function() {
+    // Hide the loader
+    loader.style.display = 'none';
 
     const filteredMeals = data.data.filter(meal => {
         const attributes = meal.attributes;
@@ -58,21 +79,22 @@ function filterAndDisplayMeals(data) {
             (selectedFilters.gezond && attributes.healthy) ||
             (selectedFilters.snel && attributes.fast);
 
-        return shouldDisplay;
+        // Check if the search term matches the meal name or description
+        const searchTermMatch =
+            attributes.naam.toLowerCase().includes(searchTerm) ||
+            attributes.omschrijving.toLowerCase().includes(searchTerm);
+
+        return shouldDisplay && (searchTerm === '' || searchTermMatch);
     });
 
+    // Display error message if no filtered meals are available
     if (filteredMeals.length === 0) {
-        console.log("No meals available");
-        messageContainer.innerHTML = 'Geen maaltijden beschikbaar voor deze opties, probeer andere filters.';
+        messageContainer.innerHTML = 'Geen maaltijden gevonden, probeer andere zoekterm of filters.';
     }
 
-    if (filteredMeals.length !== 0) {
-        messageContainer.innerHTML = '';
-    }
-        
-    //console.log("Filtered Meals:", filteredMeals);
+    console.log('Filtered meals:', filteredMeals); // Add this line to log filtered meals
 
-    // Display filtered meals
+    // Display filtered meals...
     const mealsHTML = filteredMeals.map(meal => {
         const attributes = meal.attributes;
         const smallThumbnailURL = (
@@ -119,10 +141,10 @@ function filterAndDisplayMeals(data) {
 
     dataContainer.innerHTML = mealsContainerHTML;
 
-
     // Update the counter based on the number of filtered meals
     updateCounter(filteredMeals.length);
 
+}, 500); // 500 milliseconds
     // Function to update the counter
     function updateCounter(count) {
         const totalResultsElement = document.getElementById('totalResults');
@@ -132,7 +154,42 @@ function filterAndDisplayMeals(data) {
 }
 
 // Get the data
+
 async function fetchData() {
+    try {
+        const loader = document.getElementById('loader');
+        loader.style.display = 'flex'; // Display the loader before fetching
+
+        // Find Overview container
+        const dataContainer = document.getElementById('dataContainer');
+        const messageContainer = document.getElementById('messageContainer');
+
+        const response = await fetch(apiUrl, {
+            headers: {
+                Authorization: authToken
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log("pre-pre-pre-results");
+        // Store data
+        data = await response.json();
+        console.log("pre-pre-results")
+
+    } catch (error) {
+        // Error when fetching data
+        console.error('Fetch error:', error);
+        dataContainer.innerHTML = 'Error fetching meal data.';
+        // Hide the loader in case of an error
+        const loader = document.getElementById('loader');
+        loader.style.display = 'none';
+    }
+}
+
+// Call the initial data fetch and display
+async function fetchDataAndDisplay() {
     try {
         const response = await fetch(apiUrl, {
             headers: {
@@ -146,103 +203,28 @@ async function fetchData() {
         
         // Store data
         data = await response.json();
+        console.log('Fetched data:', data); // Add this line
+        // Call filterAndDisplayMeals to initially display meals without filters
+        filterAndDisplayMeals(data, '');
 
-        // Get totals
-        const overviewTotalsElement = document.getElementById('overviewTotals');
-        const totalResultsElement = document.getElementById('totalResults');
-
-        // Find Overview container
-        const dataContainer = document.getElementById('dataContainer');
-        const messageContainer = document.getElementById('messageContainer');
-
-        // Call filterAndDisplayMeals to initially display meals
-        filterAndDisplayMeals(data);
-
-        // If there are results, continue
-        if (data && data.data && data.data.length > 0) {
-            const shuffledMeals = shuffleArray(data.data);
-            const totalResults = data.data.length;
-
-            const mealsHTML = shuffledMeals.map(meal => {
-                const attributes = meal.attributes;
-                const recipeMarkdown = attributes.recipe || '';
-
-                // Check if the necessary properties exist before accessing them
-                const smallThumbnailURL = (
-                    attributes.voorbeeld &&
-                    attributes.voorbeeld.data &&
-                    attributes.voorbeeld.data.attributes &&
-                    attributes.voorbeeld.data.attributes.formats &&
-                    attributes.voorbeeld.data.attributes.formats.small &&
-                    attributes.voorbeeld.data.attributes.formats.small.url
-                ) ? attributes.voorbeeld.data.attributes.formats.small.url : attributes.voorbeeld.data.attributes.url;
-
-                // Set labels for each meal based on Bool values
-                const categoryLabels = [];
-                if (attributes.healthy) {
-                    categoryLabels.push('<li>Gezond</li>');
-                }
-                if (attributes.cheap) {
-                    categoryLabels.push('<li>Betaalbaar</li>');
-                }
-                if (attributes.fast) {
-                    categoryLabels.push('<li>Snel</li>');
-                }
-
-                // Resturn meal items HTML with content 
-                return `
-                    <div class="meal-item__wrapper">
-                        <div class="meal-image-wrapper">
-                            <img src="${smallThumbnailURL}" alt="Gerecht ${attributes.naam}">
-                            <ul class="category-labels">
-                                ${categoryLabels.join('')}
-                            </ul>
-                        </div>
-                        <div class="meal-info-wrapper">
-                            <h2>${attributes.naam}</h2>
-                            <div class="short-description">${attributes.omschrijving}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            // Place meal items inside a Div container
-            const mealsContainerHTML = `
-                <div class="meals-container">
-                    ${mealsHTML}
-                </div>
-            `;
-
-            dataContainer.innerHTML = mealsContainerHTML;
-
-            // Update total results
-            totalResultsElement.textContent = totalResults;
-
-        } else {
-            // No results
-            dataContainer.innerHTML = 'No meals available.';
-        }
 
     } catch (error) {
-
         // Error when fetching data
         console.error('Fetch error:', error);
         dataContainer.innerHTML = 'Error fetching meal data.';
     }
 }
 
-// Call the initial data fetch and display
-fetchData();
-
-document.addEventListener('DOMContentLoaded', fetchData);
-
 document.addEventListener('DOMContentLoaded', () => {
+
+    console.log("domcontent loaded");
+
     // Define refresh button
     const refreshButton = document.getElementById('refreshButton');
 
-    // Add event listener to refresh button
-    refreshButton.addEventListener('click', fetchData);
+    // Add event listener to the refresh button
+    refreshButton.addEventListener('click', fetchDataAndDisplay);
 
-    // Fetch data on first load
-    fetchData();
+    // Call the initial data fetch and display
+    fetchDataAndDisplay();
 });

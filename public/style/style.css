@@ -75,6 +75,17 @@ header {
   margin-bottom: 3rem;
 }
 
+.search-form-wrapper {
+  margin-bottom: 1.5rem;
+}
+.search-form-wrapper input[type=text] {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
 .button-bar {
   display: flex;
   align-items: center;
@@ -110,6 +121,27 @@ header {
   color: var(--color-mid-gray);
 }
 
+.loader-wrapper {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.loader-wrapper .loader-image {
+  margin: 0 0 2em;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top;
+}
+.loader-wrapper .loader-image svg path,
+.loader-wrapper .loader-image svg rect {
+  fill: #FF6700;
+}
+
 ul {
   font-family: inherit;
 }
@@ -126,8 +158,8 @@ pre {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: 1fr;
-  grid-column-gap: 4rem;
-  grid-row-gap: 4rem;
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
 }
 @media only screen and (max-width: 900px) {
   .meals-container {
@@ -230,7 +262,7 @@ pre {
   margin-left: auto;
   margin-right: auto;
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1200px) {
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
