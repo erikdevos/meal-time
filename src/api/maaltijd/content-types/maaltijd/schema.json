@@ -37,6 +37,11 @@
     },
     "recipe": {
       "type": "richtext"
+    },
+    "verwennerij": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

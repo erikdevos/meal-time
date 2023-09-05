@@ -75,6 +75,19 @@ header {
   margin-bottom: 3rem;
 }
 
+.selected-meals {
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+.selected-meals .label {
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+.selected-meals .selected-meal {
+  font-weight: bold;
+  color: var(--color-primary-hover);
+}
+
 .search-form-wrapper {
   margin-bottom: 2rem;
 }
@@ -193,6 +206,11 @@ pre {
   transform: scale(1.05);
   cursor: pointer;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+.meal-item__wrapper.active {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  outline: solid 2px var(--color-primary);
 }
 .meal-item__wrapper .meal-image-wrapper {
   position: relative;

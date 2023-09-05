@@ -38,7 +38,8 @@ let data = null;
 let selectedFilters = {
     betaalbaar: true,
     gezond: true,
-    snel: true
+    snel: true,
+    verwennerij: true
 };
 
 const searchInput = document.getElementById('search-input');
@@ -65,6 +66,12 @@ document.getElementById('filter-snel').addEventListener('click', () => {
     selectedFilters.snel = !selectedFilters.snel;
     filterAndDisplayMeals(data, searchInput.value.trim().toLowerCase()); // Pass the searchTerm
     toggleActiveClass('filter-snel');
+});
+
+document.getElementById('filter-verwennerij').addEventListener('click', () => {
+    selectedFilters.snel = !selectedFilters.verwennerij;
+    filterAndDisplayMeals(data, searchInput.value.trim().toLowerCase()); // Pass the searchTerm
+    toggleActiveClass('filter-verwennerij');
 });
 
 // Function to toggle active class on filter buttons
@@ -99,7 +106,8 @@ function filterAndDisplayMeals(data, searchTerm) {
         const shouldDisplay =
             (selectedFilters.betaalbaar && attributes.cheap) ||
             (selectedFilters.gezond && attributes.healthy) ||
-            (selectedFilters.snel && attributes.fast);
+            (selectedFilters.snel && attributes.fast) ||
+            (selectedFilters.verwennerij && attributes.verwennerij) ;
 
         // Check if the search term matches the meal name or description
         const searchTermMatch =
@@ -113,8 +121,6 @@ function filterAndDisplayMeals(data, searchTerm) {
     if (filteredMeals.length === 0) {
         messageContainer.innerHTML = 'Geen maaltijden gevonden, probeer andere zoekterm of filters.';
     }
-
-    console.log('Filtered meals:', filteredMeals); // Add this line to log filtered meals
 
     // Display filtered meals...
     const shuffledFilteredMeals = shuffleArray(filteredMeals); // Shuffle the filtered meals
@@ -138,6 +144,9 @@ function filterAndDisplayMeals(data, searchTerm) {
         }
         if (attributes.fast) {
             categoryLabels.push('<li>Snel</li>');
+        }
+        if (attributes.verwennerij) {
+            categoryLabels.push('<li>Verwennerij</li>');
         }
 
         return `
@@ -166,7 +175,6 @@ function filterAndDisplayMeals(data, searchTerm) {
     
     // Add event listeners to the meal elements to select them
     const mealElements = document.querySelectorAll('.meal');
-    console.log(mealElements);
 
     mealElements.forEach(element => {
         console.log("event listeners test");
@@ -184,12 +192,27 @@ function filterAndDisplayMeals(data, searchTerm) {
     const mealItemWrappers = document.querySelectorAll('.meal-item__wrapper');
     mealItemWrappers.forEach(wrapper => {
         wrapper.addEventListener('click', () => {
-            const mealName = wrapper.closest('.meal').dataset.mealName;
-            updateSelectedMeals(mealName);
+            // Toggle the "active" class on the clicked item
+            wrapper.classList.toggle('active');
+    
+            const closestMealWrapper = wrapper.closest('.meal-item__wrapper');
+    
+            if (closestMealWrapper) {
+                const mealTitleElement = closestMealWrapper.querySelector('h2');
+                if (mealTitleElement) {
+                    const mealTitle = mealTitleElement.textContent;
+                    // Now you have the mealTitle from the H2 element inside the closest selector
+                    updateSelectedMeals(mealTitle);
+                } else {
+                    // Handle the case where there is no H2 element inside mealName
+                }
+            } else {
+                // Handle the case where closestMealWrapper is null
+            }
         });
     });
 
-}, 500); // 500 milliseconds
+}, 250); // 250 milliseconds
     // Function to update the counter
     function updateCounter(count) {
         const totalResultsElement = document.getElementById('totalResults');
@@ -198,26 +221,51 @@ function filterAndDisplayMeals(data, searchTerm) {
     }
 }
 
+// Function to remove a selected meal by name
+function removeSelectedMealByName(mealName) {
+    const selectedMealsContainer = document.getElementById('selectedMealsContainer');
+    const selectedMeals = selectedMealsContainer.querySelectorAll('.selected-meal');
+    console.log("Remove selected meal");
+
+    selectedMeals.forEach(selectedMeal => {
+        if (selectedMeal.textContent === mealName) {
+            selectedMeal.remove();
+        }
+    });
+}
+
 // Function to update the selected meals list
 function updateSelectedMeals(mealName) {
     const selectedMealsContainer = document.getElementById('selectedMealsContainer');
     const selectedMeals = selectedMealsContainer.querySelectorAll('.selected-meal');
+    console.log("updateSelected start");
 
-    if (selectedMeals.length === 0) {
-        selectedMealsContainer.innerHTML = `<span class="selected-meal">${mealName}</span>`;
-    } else if (selectedMeals.length === 1) {
-        selectedMealsContainer.innerHTML += `
-            <span class="divider"> and </span>
-            <span class="selected-meal">${mealName}</span>
-        `;
+    // Check if mealName is already selected
+    const isMealSelected = Array.from(selectedMeals).some(selectedMeal => {
+        return selectedMeal.textContent === mealName;
+    });
+
+    if (isMealSelected) {
+        // If meal is already selected, remove it
+        removeSelectedMealByName(mealName);
     } else {
-        const lastSelectedMeal = selectedMeals[selectedMeals.length - 1];
-        lastSelectedMeal.insertAdjacentHTML('afterend', `
-            <span class="divider"> and </span>
-            <span class="selected-meal">${mealName}</span>
-        `);
+        if (selectedMeals.length === 0) {
+            // Add the label before the first selected meal
+            selectedMealsContainer.innerHTML = `<span class="label">Geselecteerde gerecht(en):</span>`;
+            // Add the selected meal without a divider
+            selectedMealsContainer.innerHTML += `<span class="selected-meal">${mealName}</span>`;
+        } else {
+            // Add the divider and selected meal
+            selectedMealsContainer.innerHTML += `
+                <span class="divider"> en</span>
+                <span class="selected-meal">${mealName}</span>
+            `;
+        }
     }
+
+    console.log("updateSelected end");
 }
+
 
 // Get the data
 
@@ -240,10 +288,10 @@ async function fetchData() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        console.log("pre-pre-pre-results");
+      
         // Store data
         data = await response.json();
-        console.log("pre-pre-results")
+      
 
     } catch (error) {
         // Error when fetching data
@@ -270,7 +318,7 @@ async function fetchDataAndDisplay() {
         
         // Store data
         data = await response.json();
-        console.log('Fetched data:', data); // Add this line
+
         // Call filterAndDisplayMeals to initially display meals without filters
         filterAndDisplayMeals(data, '');
 
@@ -295,3 +343,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call the initial data fetch and display
     fetchDataAndDisplay();
 });
+
+function addClickListeners() {
+    // Event listener for .meal-item__wrapper clicks
+    const mealItemWrappers = document.querySelectorAll('.meal-item__wrapper');
+    mealItemWrappers.forEach(wrapper => {
+        wrapper.addEventListener('click', () => {
+            wrapper.classList.toggle('active');
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', addClickListeners);
