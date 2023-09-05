@@ -43,10 +43,10 @@ body {
 }
 
 button {
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-left: 1rem;
-	padding-right: 1rem;
+	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	padding-left: 1.2rem;
+	padding-right: 1.2rem;
 	cursor: pointer;
 	border: none;
 	outline: none;
@@ -87,7 +87,7 @@ header {
 }
 
 .search-form-wrapper {
-	margin-bottom: 1.5rem;
+	margin-bottom: 2rem;
 	input[type=text] {
 		padding-left: 1rem;
 		padding-right: 1rem;
@@ -122,7 +122,10 @@ header {
 			margin-right: 0.5rem;
 			background-color: gray;
 			&.active {
-				background-color: var(--color-secondary);
+				background-color: var(--color-primary-hover);
+			}
+			&:hover {
+				background-color: var(--color-primary);
 			}
 			&:last-of-type {
 				margin-right: 0;
@@ -227,6 +230,8 @@ pre {
 		object-fit: cover;
 		object-position: center center;
 		border-radius: 0.3rem;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
 	}
 
 	.meal-info-wrapper {

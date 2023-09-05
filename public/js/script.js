@@ -2,6 +2,26 @@
 const apiUrl = 'http://localhost:1337/api/maaltijds?populate=*';
 const authToken = 'Bearer 89ec6a0b5366e96955a1ae5610f7edbcae3c590ad2a4be5e79e72f23c0ae2ec5bb1b18b08b66250018f99a4f6b11d315b8fa92c7e5c11670d4cf3d4d5650bf17ee6e065fb3e2bce38abf7012e33ad691545590c957adb740657ec1a3a94c85e5e804280de0c98ce5dc92460af989b5d62344fab784a97fce8eaf3e5633518944';
 
+
+// Create an array to store selected meal names
+const selectedMeals = [];
+
+// Function to add a selected meal to the list
+function addSelectedMeal(mealName) {
+    selectedMeals.push(mealName);
+    updateSelectedMealsList();
+}
+
+// Function to update the selected meals list in the HTML
+function updateSelectedMealsList() {
+    const selectedMealsContainer = document.getElementById('selectedMealsContainer');
+    const selectedMealsHTML = selectedMeals.map(mealName => {
+        return `<span class="selected-meal">${mealName}</span>`;
+    }).join('<span class="divider">and</span>');
+
+    selectedMealsContainer.innerHTML = selectedMealsHTML;
+}
+
 // Show random order of results
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -66,6 +86,8 @@ function filterAndDisplayMeals(data, searchTerm) {
     if (!data) {
         return; // Data not available yet
     }
+
+    
 
  // Set a timeout to hide the loader after a minimum duration (0.5 seconds)
  setTimeout(function() {
@@ -141,9 +163,31 @@ function filterAndDisplayMeals(data, searchTerm) {
     `;
 
     dataContainer.innerHTML = mealsContainerHTML;
+    
+    // Add event listeners to the meal elements to select them
+    const mealElements = document.querySelectorAll('.meal');
+    console.log(mealElements);
+
+    mealElements.forEach(element => {
+        console.log("event listeners test");
+        console.log(mealElements);
+
+        const mealName = element.getAttribute('data-meal-name');
+        element.addEventListener('click', () => {
+            addSelectedMeal(mealName);
+        });
+    });
 
     // Update the counter based on the number of filtered meals
     updateCounter(filteredMeals.length);
+
+    const mealItemWrappers = document.querySelectorAll('.meal-item__wrapper');
+    mealItemWrappers.forEach(wrapper => {
+        wrapper.addEventListener('click', () => {
+            const mealName = wrapper.closest('.meal').dataset.mealName;
+            updateSelectedMeals(mealName);
+        });
+    });
 
 }, 500); // 500 milliseconds
     // Function to update the counter
@@ -151,6 +195,27 @@ function filterAndDisplayMeals(data, searchTerm) {
         const totalResultsElement = document.getElementById('totalResults');
         totalResultsElement.textContent = count;
         console.log("update counter");
+    }
+}
+
+// Function to update the selected meals list
+function updateSelectedMeals(mealName) {
+    const selectedMealsContainer = document.getElementById('selectedMealsContainer');
+    const selectedMeals = selectedMealsContainer.querySelectorAll('.selected-meal');
+
+    if (selectedMeals.length === 0) {
+        selectedMealsContainer.innerHTML = `<span class="selected-meal">${mealName}</span>`;
+    } else if (selectedMeals.length === 1) {
+        selectedMealsContainer.innerHTML += `
+            <span class="divider"> and </span>
+            <span class="selected-meal">${mealName}</span>
+        `;
+    } else {
+        const lastSelectedMeal = selectedMeals[selectedMeals.length - 1];
+        lastSelectedMeal.insertAdjacentHTML('afterend', `
+            <span class="divider"> and </span>
+            <span class="selected-meal">${mealName}</span>
+        `);
     }
 }
 
@@ -164,6 +229,7 @@ async function fetchData() {
         // Find Overview container
         const dataContainer = document.getElementById('dataContainer');
         const messageContainer = document.getElementById('messageContainer');
+        const selectedMealsContainer = document.getElementById('selectedMeals');
 
         const response = await fetch(apiUrl, {
             headers: {
