@@ -82,7 +82,7 @@ button {
 header {
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
-	background-color: lightgray;
+	background-color: var(--color-primary-hover);
 	margin-bottom: 3rem;
 }
 
@@ -129,6 +129,7 @@ header {
 
 		.label {
 			margin-right: 1rem;
+			font-weight: bold;
 		}
 
 		button {
@@ -257,6 +258,7 @@ pre {
 		padding: 1.5rem;
 		h2 {
 			margin-top: 0;
+			margin-bottom: 1rem;
 		}
 	}
 }
@@ -278,8 +280,10 @@ pre {
 		border-radius: 1rem;
 		margin-right: 0.7rem;
 		margin-bottom: 0;
-		background-color: var(--color-white);
-		font-size: 0.9rem;
+		background-color: var(--color-primary-hover);
+		color: var(--color-white);
+		font-size: 0.8rem;
+		font-weight: bold;
 	}
 }
 

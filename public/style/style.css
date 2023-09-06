@@ -71,7 +71,7 @@ button:hover {
 header {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  background-color: lightgray;
+  background-color: var(--color-primary-hover);
   margin-bottom: 3rem;
 }
 
@@ -118,6 +118,7 @@ header {
 }
 .button-bar .filter-toggles .label {
   margin-right: 1rem;
+  font-weight: bold;
 }
 .button-bar .filter-toggles button {
   margin-right: 0.5rem;
@@ -237,6 +238,7 @@ pre {
 }
 .meal-item__wrapper .meal-info-wrapper h2 {
   margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 .category-labels {
@@ -257,8 +259,10 @@ pre {
   border-radius: 1rem;
   margin-right: 0.7rem;
   margin-bottom: 0;
-  background-color: var(--color-white);
-  font-size: 0.9rem;
+  background-color: var(--color-primary-hover);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: bold;
 }
 
 .main-content-section {

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "maaltijd",
     "pluralName": "maaltijds",
-    "displayName": "Maaltijd",
+    "displayName": "Maaltijden",
     "description": ""
   },
   "options": {
@@ -42,6 +42,15 @@
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "Seizoen": {
+      "type": "enumeration",
+      "enum": [
+        "Winter",
+        "Lente",
+        "Zomer",
+        "Herfst"
+      ]
     }
   }
 }

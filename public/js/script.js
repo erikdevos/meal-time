@@ -28,6 +28,8 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+    console.log("shuffle array");
+
     return array;
 }
 
@@ -69,7 +71,7 @@ document.getElementById('filter-snel').addEventListener('click', () => {
 });
 
 document.getElementById('filter-verwennerij').addEventListener('click', () => {
-    selectedFilters.snel = !selectedFilters.verwennerij;
+    selectedFilters.verwennerij = !selectedFilters.verwennerij;
     filterAndDisplayMeals(data, searchInput.value.trim().toLowerCase()); // Pass the searchTerm
     toggleActiveClass('filter-verwennerij');
 });
@@ -342,6 +344,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Call the initial data fetch and display
     fetchDataAndDisplay();
+
+    document.getElementById('sortByNew').addEventListener('click', () => {
+        // Sort the data by the "id" property in ascending order
+        data.data.sort((b, a) => {
+            return a.id - b.id;
+        });
+    
+        // Call the filterAndDisplayMeals function to update the displayed meals
+        filterAndDisplayMeals(data, searchInput.value.trim().toLowerCase());
+    });
+    
 });
 
 function addClickListeners() {
