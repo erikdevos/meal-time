@@ -72,7 +72,12 @@ header {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   background-color: var(--color-primary-hover);
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
+  color: var(--color-white);
+}
+header h1 {
+  color: inherit;
+  margin-bottom: 0;
 }
 
 .selected-meals {
@@ -211,7 +216,7 @@ pre {
 .meal-item__wrapper.active {
   transform: scale(1.05);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  outline: solid 2px var(--color-primary);
+  outline: solid 5px var(--color-primary);
 }
 .meal-item__wrapper .meal-image-wrapper {
   position: relative;
