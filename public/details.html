@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vegan maaltijden overzicht | Snel, goedkoop en/of gezond</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet"> 
+    
+    <script src="js/script.js" defer></script>
+    <link rel="stylesheet" href="style/style.css" />
+
+</head>
+
+<body>
+
+    <header class="page-row-wrapper">
+        <div class="container">
+            <!-- Home -->
+        </div>
+    </header>
+
+    <section class="page-row-wrapper main-content-section">
+        <div class="container">
+            <h1>Vegan maaltijden overzicht</h1>
+
+            <div class="selected-meals" id="selectedMealsContainer">
+
+            </div>
+            
+
+            <!-- Search form -->
+            <div class="search-form-wrapper">
+                <form>
+                    <input type="text" id="search-input" class="search-input" placeholder="Zoek een gerecht" autofocus>
+                </form>
+            </div>
+
+            <!-- Refresh overview-->
+            <div class="button-bar">
+                <button id="refreshButton" class="primary overview-refresh-button">Ververs overzicht</button>
+                
+                <div class="filter-toggles">
+                    <span class="label">Laat zien:</span>
+                    <button class="secondary active" id="filter-betaalbaar">
+                        Betaalbaar
+                    </button>
+                    
+                    <button class="secondary active" id="filter-gezond">
+                        Gezond
+                    </button>
+                    
+                    <button class="secondary active" id="filter-snel">
+                        Snel
+                    </button>
+
+                    <button class="secondary active" id="filter-verwennerij">
+                        Verwennerij
+                    </button>
+                    
+                </div>
+
+                <!-- Sort by new -->
+                <button id="sortByNew" style="display: none;">Nieuwste</button>
+
+                <!-- Show totals -->
+                <div class="overview-totals" id="overviewTotals">
+                    <span id="totalResults">0</span> gerechten
+                </div>            
+            </div>
+
+            <!-- For error messages -->
+            <div id="messageContainer"></div>
+
+            <!-- Loader element -->
+            <div id="loader" class="loader-wrapper">
+                <div class="loader-image">
+                    <img src="/resources/loader.svg">
+                </div>
+            </div>
+
+
+            <!-- Meals overview -->
+            <div id="dataContainer"></div>
+        </div>
+    </section>
+
+    <footer class="page-row-wrapper">
+        <div class="container">
+            Copyright 2023
+        </div>
+    </footer>
+</body>
+
+</html>

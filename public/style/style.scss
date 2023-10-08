@@ -1,6 +1,4 @@
-$color_1: var(--color-white);
 $font-fam-pri: 'Raleway', sans-serif;
-$font-family_2: inherit;
 $background-color_1: #eaeaea;
 $background-color_2: var(--color-white);
 $background-color_3: lightgray;
@@ -84,11 +82,14 @@ header {
 	padding-bottom: 1.5rem;
 	background-color: var(--color-primary-hover);
 	margin-bottom: 5rem;
-	color: $color_1;
+	color: var(--color-white);
+	box-shadow: 0px 5px 13px #44444445;
+
 	h1 {
 		color: inherit;
 		margin-bottom: 0;
 	}
+
 }
 
 .selected-meals {
@@ -187,13 +188,11 @@ header {
 
 
 ul {
-	font-family: $font-family_2;
 	& li { font-family: inherit;
     }
 } 
 
 pre {
-    font-family: $font-family_2;
     word-break: break-word;
 }
 
@@ -321,7 +320,7 @@ pre {
 
 footer {
 	background-color: $background-color_4;
-	color: $color_1;
+	color: var(--color-white);
 	padding-top: 7rem;
 	padding-bottom: 7rem;
 }
