@@ -10,11 +10,15 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "16": "0.0.2",
     "@_sh/strapi-plugin-ckeditor": "^2.0.4",
     "@strapi/plugin-i18n": "4.13",
     "@strapi/plugin-users-permissions": "4.13",
     "@strapi/strapi": "4.13",
-    "better-sqlite3": "8.5.0"
+    "better-sqlite3": "8.5.0",
+    "install": "^0.13.0",
+    "mysql": "^2.18.1",
+    "nvm": "0.0.4"
   },
   "author": {
     "name": "Erik de Vos"

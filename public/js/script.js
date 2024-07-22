@@ -1,7 +1,6 @@
 // Set API url and auth token
 const apiUrl = 'http://localhost:1337/api/maaltijds?populate=*';
-const authToken = 'Bearer 89ec6a0b5366e96955a1ae5610f7edbcae3c590ad2a4be5e79e72f23c0ae2ec5bb1b18b08b66250018f99a4f6b11d315b8fa92c7e5c11670d4cf3d4d5650bf17ee6e065fb3e2bce38abf7012e33ad691545590c957adb740657ec1a3a94c85e5e804280de0c98ce5dc92460af989b5d62344fab784a97fce8eaf3e5633518944';
-
+const authToken = 'Bearer 6b8a14ff34de7a73c211afff952e49d335121bd3ef9b91d4cf3a9d9683efeecb0534e33bb5400dff1caf0c738319e95cd7c84a9b8b43a512df87aaf9d01f531ab92c6ddb5951f5f09478fee89328a8ee2d4e8dfc348fe77caf87cc8dddfac1d374e4eec8ad6f50b9abc1b42f9bb6481642ecd456989aa35744c641c84404ca6c9b6e77551b28b5613ebddfcb48a7e4fc9fa220c2a000188c176f3fbb8620ff70a5e655800c9251bd176b87e9c60f04fb2cccdcd392400f98352974986e59dc04677f9ddadc1e72832180a07d6ba1c3a91aeb808a6ade32a5a18b1742b43a30a45875426d35b8f5ba188d92806d1592837091224a274ac949f54084d652d299b7';
 
 // Create an array to store selected meal names
 const selectedMeals = [];
@@ -271,37 +270,26 @@ function updateSelectedMeals(mealName) {
 
 // Get the data
 
-async function fetchData() {
+async function fetchDataAndDisplay() {
     try {
-        const loader = document.getElementById('loader');
-        loader.style.display = 'flex'; // Display the loader before fetching
-
-        // Find Overview container
-        const dataContainer = document.getElementById('dataContainer');
-        const messageContainer = document.getElementById('messageContainer');
-        const selectedMealsContainer = document.getElementById('selectedMeals');
-
         const response = await fetch(apiUrl, {
             headers: {
-                Authorization: authToken
-            }
+                //'Authorization': authToken,
+                'Content-Type': 'application/json',
+            },
         });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            const errorDetails = await response.text();
+            throw new Error(`Network response was not ok (${response.status}): ${errorDetails}`);
         }
-      
-        // Store data
+
         data = await response.json();
-      
+        filterAndDisplayMeals(data, '');
 
     } catch (error) {
-        // Error when fetching data
         console.error('Fetch error:', error);
-        dataContainer.innerHTML = 'Error fetching meal data.';
-        // Hide the loader in case of an error
-        const loader = document.getElementById('loader');
-        loader.style.display = 'none';
+        dataContainer.innerHTML = `Error fetching meal data: ${error.message}`;
     }
 }
 
@@ -310,12 +298,13 @@ async function fetchDataAndDisplay() {
     try {
         const response = await fetch(apiUrl, {
             headers: {
-                Authorization: authToken
+               // Authorization: authToken
             }
         });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok (2)');
+            
         }
         
         // Store data
